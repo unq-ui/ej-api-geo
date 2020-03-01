@@ -5,18 +5,20 @@ import io.javalin.apibuilder.ApiBuilder.*
 import org.eclipse.jetty.http.HttpStatus.*
 import com.fasterxml.jackson.databind.exc.MismatchedInputException
 import geo.Geo
+import io.javalin.core.util.RouteOverviewPlugin
 
 fun main() {
-    val app = Javalin.create()
-            .enableRouteOverview("/routes")
-            .exception(MismatchedInputException::class.java) { e, ctx ->
-                ctx.status(BAD_REQUEST_400)
-                ctx.json(mapOf(
-                        "status" to BAD_REQUEST_400,
-                        "message" to e.message
-                ))
-            }
-            .start(7000)
+    val app = Javalin.create {
+        config -> config.registerPlugin(RouteOverviewPlugin("routes"))
+    }
+    app.exception(MismatchedInputException::class.java) { e, ctx ->
+        ctx.status(BAD_REQUEST_400)
+        ctx.json(mapOf(
+                "status" to BAD_REQUEST_400,
+                "message" to e.message
+        ))
+    }
+    app.start(7000)
 
     app.get("/") { ctx -> ctx.json(mapOf("message" to "Hello World")) }
 

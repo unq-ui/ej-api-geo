@@ -1,7 +1,7 @@
 package geo.api
 
 import geo.Geo
-import io.javalin.NotFoundResponse
+import io.javalin.http.NotFoundResponse
 
 data class Place(val id: Int, val name: String, val latitude: Double, val longitude: Double)
 class GeoController {

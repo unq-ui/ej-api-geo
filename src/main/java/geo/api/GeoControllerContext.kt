@@ -1,8 +1,8 @@
 package geo.api
 
 import geo.Geo
-import io.javalin.Context
-import io.javalin.NotFoundResponse
+import io.javalin.http.Context
+import io.javalin.http.NotFoundResponse
 import org.eclipse.jetty.http.HttpStatus.*
 
 class GeoControllerContext {
